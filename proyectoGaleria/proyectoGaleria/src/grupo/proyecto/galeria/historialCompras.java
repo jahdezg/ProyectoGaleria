@@ -1,4 +1,4 @@
-package grupo.proyecto.galeria.controladorSubasta;
+package grupo.proyecto.galeria;
 
 import java.util.HashMap;
 import java.util.Map;
