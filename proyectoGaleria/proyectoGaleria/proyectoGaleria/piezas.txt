@@ -1,0 +1,2 @@
+Hola,2023,Escultura,false
+Vangiogh,1998,Pintura,false
