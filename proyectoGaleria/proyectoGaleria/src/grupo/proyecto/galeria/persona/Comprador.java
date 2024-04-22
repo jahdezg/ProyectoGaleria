@@ -1,6 +1,8 @@
 package grupo.proyecto.galeria.persona;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import grupo.proyecto.galeria.galeria;
 import grupo.proyecto.galeria.controladorPiezas.Compra;
 import grupo.proyecto.galeria.pieza.Pieza;
 
@@ -10,7 +12,7 @@ public class Comprador extends Persona {
 	private String nombre;
 	private Boolean verificado;
 	private List<Compra> compras;
-	private Double limiteCompra;
+	private double limiteCompra;
 
 	public Comprador(int id, String nombre, Boolean verificado, Double limiteCompra) 
 	{
@@ -21,9 +23,21 @@ public class Comprador extends Persona {
 		this.limiteCompra = limiteCompra;
 	}
 
-	public void realizarOferta(Pieza pieza, Double valor) 
+	public void realizarOferta(Pieza pieza, Double monto, Administrador administrador, galeria galeria,
+			Date fechaCompra, List<Compra> compras) 
 	{
-		return;
+		if ((pieza.getValorFijo() == true) && (pieza.piezaBloqueada == false))
+		{
+			pieza.piezaBloqueada = true;
+			List<Persona> usuarios = galeria.getUsuarios();
+			Comprador comprador = new Comprador(getId(), getNombre(), getVerificado(), getLimiteCompra());
+			boolean verificar = administrador.verificarCompra(comprador, monto, usuarios, pieza);
+			if (verificar == true)
+			{				
+				Compra compra = new Compra(pieza, comprador, monto, fechaCompra);
+				administrador.registrarCompra(compra, compras);
+			}
+		}
     }
 
 	public String getTipoDePersona() 
@@ -41,7 +55,7 @@ public class Comprador extends Persona {
 		return compras;
 	}
 	
-	public Double getLimiteCompra()
+	public double getLimiteCompra()
 	{
 		return limiteCompra;
 	}

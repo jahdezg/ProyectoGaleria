@@ -40,12 +40,5 @@ public class Compra
 	{
         return fechaCompra;
     }
-
-// metodo para validar
-public boolean validarCompra() 
-	{
-        // Implementar la lógica de validación
-        return true; // O false si la compra no es válida
-	}
  
 }

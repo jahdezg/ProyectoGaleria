@@ -20,15 +20,18 @@ public class Subasta
 	}
 
 	// Método para agregar un participante verificado
-	public void agregarParticipante(Comprador comprador) {
+	public void agregarParticipante(Comprador comprador) 
+	{
 		participantesVerificados.add(comprador);
 	}
 
-	public double getValorInicial() {
+	public double getValorInicial() 
+	{
 		return valorInicial;
 	}
 
-	public double getValorMinimo() {
+	public double getValorMinimo() 
+	{
 		return valorMinimo;
 	}
 	
@@ -37,24 +40,29 @@ public class Subasta
 		return idSubasta;
 	}
 
-	public List<Comprador> getParticipantesVerificados() {
+	public List<Comprador> getParticipantesVerificados() 
+	{
 		return participantesVerificados;
 	}
 
 	// Métodos de establecimiento (si llegan a ser necesarios)
-	public void setIdSubasta(int idSubasta) {
+	public void setIdSubasta(int idSubasta) 
+	{
 		this.idSubasta = idSubasta;
 	}
 
-	public void setValorInicial(double valorInicial) {
+	public void setValorInicial(double valorInicial) 
+	{
 		this.valorInicial = valorInicial;
 	}
 
-	public void setValorMinimo(double valorMinimo) {
+	public void setValorMinimo(double valorMinimo) 
+	{
 		this.valorMinimo = valorMinimo;
 	}
 
-	public void setParticipantesVerificados(List<Comprador> participantesVerificados) {
+	public void setParticipantesVerificados(List<Comprador> participantesVerificados) 
+	{
 		this.participantesVerificados = participantesVerificados;
 	}
 

@@ -1,5 +1,7 @@
 package grupo.proyecto.galeria.persona;
 
+import java.util.List;
+
 import grupo.proyecto.galeria.controladorPiezas.Compra;
 import grupo.proyecto.galeria.pieza.Pieza;
 
@@ -13,6 +15,11 @@ public class Administrador extends Persona {
 	public Administrador(String nombre, int id) {
 		this.nombre = nombre;
 		this.id = id;
+	}
+	
+	public void venderPieza(Comprador comprador, Pieza pieza)
+	{
+		
 	}
 
 	@Override
@@ -37,9 +44,16 @@ public class Administrador extends Persona {
 		return false;
 	}
 
-	public boolean verificarComprador(Comprador comprador, int oferta) {
-
-		return false;
+	public boolean verificarCompra(Comprador comprador, double oferta, List<Persona> usuarios, Pieza pieza) 
+	{
+		if ((usuarios.contains(comprador) == true) && (oferta >= pieza.getValor()))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	public void verificarLimiteCompra(Comprador comprador) {
@@ -50,8 +64,9 @@ public class Administrador extends Persona {
 
 	}
 
-	public void registrarCompra(Comprador comprador, Compra compra) {
-
+	public void registrarCompra(Compra compra, List<Compra> compras) 
+	{
+		compras.add(compra);
 	}
 
 	@Override
