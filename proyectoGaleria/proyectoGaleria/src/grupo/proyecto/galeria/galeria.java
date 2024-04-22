@@ -30,9 +30,8 @@ public class galeria {
 	}
 
 	// sirve para iniciar una subasta en la galería
-	public void iniciarSubasta() 
+	public void iniciarSubasta(Subasta subasta) 
 	{
-		Subasta subasta = new Subasta();
 		subasta.realizarSubasta(0, 0, 0, null);
 		subastas.add(subasta);
 	}

@@ -1,7 +1,7 @@
 package grupo.proyecto.galeria.persona;
 
-import grupo.proyecto.galeria.controladorPiezas.Compra;
-import grupo.proyecto.galeria.controladorPiezas.Pago;
+import grupo.proyecto.galeria.Compra;
+import grupo.proyecto.galeria.Pago;
 import grupo.proyecto.galeria.pieza.Pieza;
 
 public class Cajero extends Persona {

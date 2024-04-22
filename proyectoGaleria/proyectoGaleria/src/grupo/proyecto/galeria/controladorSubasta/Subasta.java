@@ -11,12 +11,17 @@ public class Subasta
 	private double valorMinimo;
 	private List<Comprador> participantesVerificados;
 	
-	public void realizarSubasta(int idSubasta, double valorInicial, double valorMinimo, List<Comprador> participantesVerificados) 
+	public Subasta(int idSubasta, double valorInicial, double valorMinimo, List<Comprador> participantesVerificados)
 	{
 		this.idSubasta = idSubasta;
 		this.valorInicial = valorInicial;
 		this.valorMinimo = valorMinimo;
 		this.participantesVerificados = new ArrayList<>();
+	}
+	
+	public void realizarSubasta(int idSubasta, double valorInicial, double valorMinimo, List<Comprador> participantesVerificados) 
+	{
+		
 	}
 
 	// Método para agregar un participante verificado

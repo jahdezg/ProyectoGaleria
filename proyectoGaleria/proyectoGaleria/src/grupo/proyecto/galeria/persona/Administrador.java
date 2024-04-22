@@ -2,7 +2,7 @@ package grupo.proyecto.galeria.persona;
 
 import java.util.List;
 
-import grupo.proyecto.galeria.controladorPiezas.Compra;
+import grupo.proyecto.galeria.Compra;
 import grupo.proyecto.galeria.pieza.Pieza;
 
 public class Administrador extends Persona {

@@ -1,4 +1,4 @@
-package grupo.proyecto.galeria.controladorPiezas;
+package grupo.proyecto.galeria;
 
 import java.util.Date;
 

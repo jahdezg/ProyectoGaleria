@@ -2,8 +2,9 @@ package grupo.proyecto.galeria.persona;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import grupo.proyecto.galeria.Compra;
 import grupo.proyecto.galeria.galeria;
-import grupo.proyecto.galeria.controladorPiezas.Compra;
 import grupo.proyecto.galeria.pieza.Pieza;
 
 public class Comprador extends Persona {
