@@ -3,7 +3,7 @@ package grupo.proyecto.galeria.persona;
 import java.util.ArrayList;
 import java.util.List;
 
-import grupo.proyecto.galeria.pieza.Pieza;
+import grupo.proyecto.galeria.inventarioPiezas.Pieza;
 
 public class Propietario extends Persona 
 {

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import grupo.proyecto.galeria.controladorSubasta.Subasta;
+import grupo.proyecto.galeria.inventarioPiezas.Pieza;
 import grupo.proyecto.galeria.persona.Persona;
-import grupo.proyecto.galeria.pieza.Pieza;
 
 public class galeria {
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 import grupo.proyecto.galeria.Compra;
 import grupo.proyecto.galeria.galeria;
-import grupo.proyecto.galeria.pieza.Pieza;
+import grupo.proyecto.galeria.inventarioPiezas.Pieza;
 
 public class Comprador extends Persona {
 	public static final String COMPRADOR = "Comprador";

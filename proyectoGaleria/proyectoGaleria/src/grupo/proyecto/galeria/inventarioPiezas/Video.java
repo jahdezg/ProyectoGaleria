@@ -1,4 +1,4 @@
-package grupo.proyecto.galeria.pieza;
+package grupo.proyecto.galeria.inventarioPiezas;
 
 public class Video {
 	private String formato;

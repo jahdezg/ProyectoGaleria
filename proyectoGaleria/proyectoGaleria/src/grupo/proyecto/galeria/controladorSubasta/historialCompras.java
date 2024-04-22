@@ -3,8 +3,8 @@ package grupo.proyecto.galeria.controladorSubasta;
 import java.util.HashMap;
 import java.util.Map;
 
+import grupo.proyecto.galeria.inventarioPiezas.Pieza;
 import grupo.proyecto.galeria.persona.Comprador;
-import grupo.proyecto.galeria.pieza.Pieza;
 
 public class historialCompras {
 	private Map<Pieza, Map<Comprador, Double>> ofertasRealizadas;

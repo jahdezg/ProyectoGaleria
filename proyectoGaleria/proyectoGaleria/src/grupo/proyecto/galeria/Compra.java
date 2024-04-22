@@ -2,8 +2,8 @@ package grupo.proyecto.galeria;
 
 import java.util.Date;
 
+import grupo.proyecto.galeria.inventarioPiezas.Pieza;
 import grupo.proyecto.galeria.persona.Comprador;
-import grupo.proyecto.galeria.pieza.Pieza;
 
 public class Compra 
 {
