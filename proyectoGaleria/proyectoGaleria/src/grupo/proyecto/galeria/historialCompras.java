@@ -7,6 +7,9 @@ import grupo.proyecto.galeria.inventarioPiezas.Pieza;
 import grupo.proyecto.galeria.persona.Comprador;
 
 public class historialCompras {
+	
+	//Castear a documentos todo
+	
 	private Map<Pieza, Map<Comprador, Double>> ofertasRealizadas;
 
 	public historialCompras() {

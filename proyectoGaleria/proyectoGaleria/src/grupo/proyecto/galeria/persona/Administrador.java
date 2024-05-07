@@ -76,7 +76,8 @@ public class Administrador extends Persona {
 	}
 
 	@Override
-	public void actualizarInventario() {
+	public void actualizarInventario() 
+	{
 		// TODO Auto-generated method stub
 		
 	}

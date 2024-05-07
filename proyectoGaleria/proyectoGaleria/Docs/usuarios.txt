@@ -1,4 +1,0 @@
-Jesus,Autor
-Alejp,Cajero
-Juan,Cajero
-Juan,Propietario

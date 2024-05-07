@@ -3,140 +3,183 @@ package grupo.proyecto.galeria.consola;
 import java.io.*;
 import java.util.*;
 
-public class ConsolaPersonasRegistro {
-    private static final String ARCHIVO_USUARIOS = "usuarios.txt";
-    private static List<Usuario> usuariosRegistrados = new ArrayList<>();
+import grupo.proyecto.galeria.persona.Persona;
 
-    public static void main(String[] args) {
+public class ConsolaPersonasRegistro 
+{
+	private static final String ARCHIVO_USUARIOS = "usuarios.txt";
+    private static List<Persona> personasRegistradas = new ArrayList<>();
+
+    public static void main(String[] args) 
+    {
         cargarUsuarios();
 
-        Usuario usuario = roles();
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
+        do 
+        {
+        	System.out.println("Creador de Usuarios:");
+            System.out.println("1. Registrar Usuario");
+            System.out.println("2. Eliminar Usuario");
+            System.out.println("3. Mostrar Usuarios registrados");
+            System.out.println("4. Salir");
+            System.out.print("Seleccione una opción: ");
 
-        if (usuario != null) {
-            System.out.println(usuario.getNombre().getValor() + " ha seleccionado el rol de " + usuario.getRol().getValor());
-        }
-
-        System.out.println("Usuarios registrados:");
-        for (Usuario u : usuariosRegistrados) {
-            System.out.println(u.getNombre().getValor() + " - " + u.getRol().getValor());
-        }
+            if (scanner.hasNextInt()) 
+            {
+                opcion = scanner.nextInt();
+                scanner.nextLine();
+                	
+                switch (opcion) 
+                {
+                    case 1:
+                        registrarUsuario();
+                        return;
+                    case 2:
+                        eliminarPersona();
+                        return;
+                    case 3:
+                        mostrarPersonas();
+                        return;
+                    case 4:
+                        return;
+                    default:
+	                    System.out.println("Opción inválida. Por favor seleccione una opción válida.");
+	            }
+            }
+            else 
+            {
+                scanner.nextLine(); 
+                System.out.println("Opción inválida. Por favor seleccione una opción válida.");
+                opcion = 0; 
+            }
+        } while (opcion != 4);
 
         scanner.close();
     }
+    public static void registrarUsuario() 
+    {
+        Scanner scanner = new Scanner(System.in);
 
-    private static Scanner scanner = new Scanner(System.in);
-
-    public static Usuario roles() {
-        Map<Integer, Rol> roles = new HashMap<>();
-        roles.put(1, new Rol("Administrador"));
-        roles.put(2, new Rol("Autor"));
-        roles.put(3, new Rol("Cajero"));
-        roles.put(4, new Rol("Comprador"));
-        roles.put(5, new Rol("Empleado"));
-        roles.put(6, new Rol("Operador"));
-        roles.put(7, new Rol("Propietario"));
-
-        System.out.println("Por favor ingrese su nombre: ");
+        System.out.println("Ingrese el tipo de Usuario: ");
+        String tipo = scanner.nextLine();
+        System.out.println("Ingrese el Nombre del usuario: ");
         String nombre = scanner.nextLine();
+        System.out.println("Ingrese el Username deseado: ");
+        String username = scanner.nextLine();
+        System.out.println("Ingrese la contraseña deseada: ");
+        String contrasenia = scanner.nextLine();
 
-        System.out.println("Los roles disponibles son:");
-        for (Map.Entry<Integer, Rol> entry : roles.entrySet()) {
-            System.out.println(entry.getKey() + ". " + entry.getValue().getValor());
+        Persona nuevaPersona = new persona(tipo, nombre, username, contrasenia);
+
+        personasRegistradas.add(nuevaPersona);
+
+        guardarPersona();
+
+        System.out.println("La pieza se ha registrado correctamente.");
+        
+        scanner.close();
+    }
+
+    public static void eliminarPersona() 
+    {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Piezas registradas:");
+        for (int i = 0; i < personasRegistradas.size(); i++) 
+        {
+            System.out.println((i + 1) + ". " + personasRegistradas.get(i));
         }
 
-        System.out.println("Por favor ingrese el número correspondiente al rol:");
-        int opcion = scanner.nextInt();
-        scanner.nextLine(); 
+        System.out.println("Ingrese el número de la pieza que desea eliminar:");
+        int numeroPersona = scanner.nextInt();
+        scanner.nextLine();
 
-        if (roles.containsKey(opcion)) {
-            Rol rolSeleccionado = roles.get(opcion);
+        if (numeroPersona >= 1 && numeroPersona <= personasRegistradas.size()) 
+        {
+            personasRegistradas.remove(numeroPersona - 1);
 
+            guardarPersona();
 
-            Usuario nuevoUsuario = new Usuario(new Nombre(nombre), rolSeleccionado);
+            System.out.println("La pieza se ha eliminado correctamente.");
+        } 
+        else 
+        {
+            System.out.println("Número de pieza inválido. No se ha eliminado ninguna pieza.");
+        }
+        scanner.close();
+    }
 
-
-            usuariosRegistrados.add(nuevoUsuario);
-
-
-            guardarUsuarios();
-
-
-            return nuevoUsuario;
-        } else {
-            System.out.println("Opción inválida. Por favor seleccione un número válido.");
-
-
-            return null;
+    public static void mostrarPersonas() 
+    {
+        System.out.println("Usuarios registrados:");
+        for (int i = 0; i < personasRegistradas.size(); i++) 
+        {
+            System.out.println((i + 1) + ". " + personasRegistradas.get(i));
         }
     }
 
-    private static void guardarUsuarios() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(ARCHIVO_USUARIOS))) {
-            for (Usuario usuario : usuariosRegistrados) {
-                writer.println(usuario.getNombre().getValor() + "," + usuario.getRol().getValor());
+    private static void guardarPersona() 
+    {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(ARCHIVO_USUARIOS))) 
+        {
+            for (Persona usuario : personasRegistradas) 
+            {
+                writer.println(usuario.getTipo() + "," + usuario.getNombre() + "," + usuario.getUsername() + "," + usuario.getContrasenia());
             }
-        } catch (IOException e) {
+        } catch (IOException e) 
+        {
             e.printStackTrace();
         }
     }
 
-    private static void cargarUsuarios() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(ARCHIVO_USUARIOS))) {
+    private static void cargarUsuarios() 
+    {
+        try (BufferedReader reader = new BufferedReader(new FileReader(ARCHIVO_USUARIOS))) 
+        {
             String linea;
-            while ((linea = reader.readLine()) != null) {
+            while ((linea = reader.readLine()) != null) 
+            {
                 String[] partes = linea.split(",");
-                if (partes.length == 2) { 
-                    String nombre = partes[0];
-                    String rol = partes[1];
-                    usuariosRegistrados.add(new Usuario(new Nombre(nombre), new Rol(rol)));
-                } else {
-                    System.out.println("Menu: " + linea);
-                }
+                String tipo = partes[0];
+                String nombre = partes[1];
+                String username = partes[2];
+                String contrasenia = partes[3];
+                personasRegistradas.add(new persona(tipo, nombre, username, contrasenia));
             }
-        } catch (IOException e) {
-            
-        }
+        } 
+        catch (IOException e) 
+        {}
     }
 }
+class persona extends Persona
+{
+	public persona(String tipo, String nombre, String username, String contrasenia) 
+	{
+		super(tipo, nombre, username, contrasenia);
+	}
 
-class Nombre {
-    private String valor;
+	@Override
+	public String getTipo() 
+	{
+		return tipo;
+	}
 
-    public Nombre(String valor) {
-        this.valor = valor;
-    }
+	@Override
+	public String getNombre() 
+	{
+		return nombre;
+	}
 
-    public String getValor() {
-        return valor;
-    }
-}
+	@Override
+	public String getUsername() 
+	{
+		return username;
+	}
 
-class Rol {
-    private String valor;
-
-    public Rol(String valor) {
-        this.valor = valor;
-    }
-
-    public String getValor() {
-        return valor;
-    }
-}
-
-class Usuario {
-    private Nombre nombre;
-    private Rol rol;
-
-    public Usuario(Nombre nombre, Rol rol) {
-        this.nombre = nombre;
-        this.rol = rol;
-    }
-
-    public Nombre getNombre() {
-        return nombre;
-    }
-
-    public Rol getRol() {
-        return rol;
-    }
+	@Override
+	public String getContrasenia() 
+	{
+		return contrasenia;
+	}
 }
