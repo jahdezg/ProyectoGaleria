@@ -15,7 +15,7 @@ public class ConsolaPersonasRegistro
         cargarUsuarios();
 
         Scanner scanner = new Scanner(System.in);
-        int opcion;
+        int opcion = 0;
         do 
         {
         	System.out.println("Creador de Usuarios:");
@@ -23,39 +23,32 @@ public class ConsolaPersonasRegistro
             System.out.println("2. Eliminar Usuario");
             System.out.println("3. Mostrar Usuarios registrados");
             System.out.println("4. Salir");
-            System.out.print("Seleccione una opción: ");
+            System.out.println("Seleccione una opción: ");
 
-            if (scanner.hasNextInt()) 
-            {
+          
                 opcion = scanner.nextInt();
-                scanner.nextLine();
+
                 	
                 switch (opcion) 
                 {
                     case 1:
                         registrarUsuario();
-                        return;
+                        break;
                     case 2:
                         eliminarPersona();
-                        return;
+                        break;
                     case 3:
                         mostrarPersonas();
-                        return;
+                        break;
                     case 4:
-                        return;
+                    	System.out.println("Ha elegido la opcion: SALIR");
                     default:
 	                    System.out.println("Opción inválida. Por favor seleccione una opción válida.");
 	            }
-            }
-            else 
-            {
-                scanner.nextLine(); 
-                System.out.println("Opción inválida. Por favor seleccione una opción válida.");
-                opcion = 0; 
-            }
+
         } while (opcion != 4);
 
-        scanner.close();
+
     }
     public static void registrarUsuario() 
     {
@@ -78,7 +71,7 @@ public class ConsolaPersonasRegistro
 
         System.out.println("La pieza se ha registrado correctamente.");
         
-        scanner.close();
+
     }
 
     public static void eliminarPersona() 
@@ -107,7 +100,7 @@ public class ConsolaPersonasRegistro
         {
             System.out.println("Número de pieza inválido. No se ha eliminado ninguna pieza.");
         }
-        scanner.close();
+
     }
 
     public static void mostrarPersonas() 
