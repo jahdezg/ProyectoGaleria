@@ -1,1 +1,3 @@
 a,a,a,a
+Comprador,JUano,XxJuanoxX,PepitoPerez
+cangrejo,lola,Lolazzzz,Haruna
