@@ -71,24 +71,32 @@ public class ConsolaGaleria
 	    	            switch (opcion3) 
 	    	                {
 	    	                    case 1:
-	    	                        verificado = login(personasRegistradas);
-	    	                        if (verificado) {System.out.println("El usuario existe");}
-	    	                        else {System.out.println("Usuario no encontrado");}
+	    	                    	System.out.println("Se ingresara como Comprador");
+	    	                        verificado = login(personasRegistradas, "Comprador");
+	    	                        if (verificado) 
+	    	                        {
+	    	                        	System.out.println("Se ha ingresado correctamente");
+	    	                        }
 	    	                        break;
 	    	                    case 2:
-	    	                        verificado = login(personasRegistradas);
+	    	                    	System.out.println("Se ingresara como Propietario");
+//	    	                        verificado = login(personasRegistradas, "Propietario");
 	    	                        break;
 	    	                    case 3:
-	    	                        verificado = login(personasRegistradas);
+	    	                    	System.out.println("Se ingresara como Cajero");
+//	    	                        verificado = login(personasRegistradas, "Cajero");
 	    	                        break;
 	    	                    case 4:
-	    	                        verificado = login(personasRegistradas);
+	    	                    	System.out.println("Se ingresara como Administrador");
+//	    	                        verificado = login(personasRegistradas, "Administrador");
 	    	                        break;
 	    	                    case 5:
-	    	                        verificado = login(personasRegistradas);
+	    	                    	System.out.println("Se ingresara como Operador");
+//	    	                        verificado = login(personasRegistradas, "Operador");
 	    	                        break;
 	    	                    case 6:
-	    	                        verificado = login(personasRegistradas);
+	    	                    	System.out.println("Se ingresara como Empleado");
+//	    	                        verificado = login(personasRegistradas, "Empleado");
 	    	                        break;
 	    	                }
 	            		break;
@@ -102,9 +110,11 @@ public class ConsolaGaleria
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	    
 	    
 	    
-	    public static boolean login(List<Persona> personasRegistradas)
+	    public static boolean login(List<Persona> personasRegistradas, String tipo)
 	    {
+	    	int intentos = 3;
 	    	int i = 0;
+	    	boolean encontrado = false;
 	    	boolean verificado = false;
 	    	List<String> listaUsuarios = new ArrayList<String>();
 	    	List<String> listaContrasenias = new ArrayList<String>();
@@ -114,17 +124,50 @@ public class ConsolaGaleria
 	    		listaContrasenias.add(persona.getContrasenia());
 	    	}
 	    	Scanner scn = new Scanner(System.in);
-	    	while((i<3) || (verificado == false))
-	    	{
 	    	System.out.println("Ingrese su usuario: ");
 	    	String usuario = scn.nextLine();
-	    	System.out.println("Ingrese su contraseña: ");
-	    	String contrasenia = scn.nextLine();
-	    	if((listaUsuarios.contains(usuario)) && (listaContrasenias.contains(contrasenia))) {verificado = true;}
-	    	i++;
+	    	while((i < listaUsuarios.size()) && (encontrado == false))
+	    	{
+	    		if(listaUsuarios.get(i).equals(usuario))
+	    		{
+	    			encontrado = true;
+	    		}
+	    		else {i++;}
+	    		
 	    	}
-	    	scn.close();
+	    	if (encontrado)
+	    	{
+	    	while ((intentos > 0) && (verificado == false))
+	    	{
+	    		System.out.println("Ingrese su contraseña: ");
+	    		String contrasenia = scn.nextLine();
+	    		if(listaContrasenias.get(i).equals(contrasenia)) {verificado = true;}
+	    		else
+	    		{
+	    			intentos--;
+	    	    	System.out.println("intentos restantes: " + intentos);
+	    	    	System.out.println("intente nuevamente");
+	    		}
+	    	}
+	    	}
+	    	else 
+	    	{
+	    		System.out.println("Usuario no encontrado, pruebe de nuevo");
+	    	}
+	    	if (verificado)
+	    	{
+	    	if (verificado && (personasRegistradas.get(i).getTipo().equals(tipo)))
+	    	{
+	    		verificado = true;
+	    	}
+	    	else 
+	    	{
+	    		verificado = false;
+	    		System.out.println("Error, el usuario ingresado es del tipo: " + personasRegistradas.get(i).getTipo());
+	    	}
+	    	}
 	    	return verificado;
+	    	
 	    }
 	    
 	    public static void registrarUsuario() 
