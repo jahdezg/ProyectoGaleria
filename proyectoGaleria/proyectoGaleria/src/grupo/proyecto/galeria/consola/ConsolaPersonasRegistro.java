@@ -47,7 +47,7 @@ public class ConsolaPersonasRegistro
 	            }
 
         } while (opcion != 4);
-
+        scanner.close();
 
     }
     public static void registrarUsuario() 
@@ -126,7 +126,7 @@ public class ConsolaPersonasRegistro
         }
     }
 
-    private static void cargarUsuarios() 
+    public static void cargarUsuarios() 
     {
         try (BufferedReader reader = new BufferedReader(new FileReader(ARCHIVO_USUARIOS))) 
         {
@@ -155,24 +155,24 @@ class persona extends Persona
 	@Override
 	public String getTipo() 
 	{
-		return tipo;
+		return this.tipo;
 	}
 
 	@Override
 	public String getNombre() 
 	{
-		return nombre;
+		return this.nombre;
 	}
 
 	@Override
 	public String getUsername() 
 	{
-		return username;
+		return this.username;
 	}
 
 	@Override
 	public String getContrasenia() 
 	{
-		return contrasenia;
+		return this.contrasenia;
 	}
 }

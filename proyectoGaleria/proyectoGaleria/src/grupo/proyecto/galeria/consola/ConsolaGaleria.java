@@ -20,10 +20,11 @@ public class ConsolaGaleria
 
 	    public static void main(String[] args) 
 	    {
-	        cargarUsuarios();
+	        ConsolaPersonasRegistro.cargarUsuarios();
 
 	        Scanner scanner = new Scanner(System.in);
 	        int opcion;
+	        boolean verificado;
 	        do 
 	        {
 	        	System.out.println("Elija que tipo usuario es: ");
@@ -35,56 +36,118 @@ public class ConsolaGaleria
 	            System.out.println("6. Empleado");
 	            System.out.println("7. Salir");
 	            System.out.print("Seleccione una opción: ");
-//	            System.out.println("Menu del Administrador:");
-//	            System.out.println("1. Registrar nueva pieza");
-//	            System.out.println("2. Eliminar pieza");
-//	            System.out.println("3. Mostrar piezas registradas");
-//	            System.out.println("4. Salir");
-//	            System.out.print("Seleccione una opción: ");
 
-	            if (scanner.hasNextInt()) 
-	            {
 	                opcion = scanner.nextInt();
-	                scanner.nextLine();
-	                	
+               	
 	                switch (opcion) 
 	                {
 	                    case 1:
-	                        registrarUsuario();
-	                        return;
+	                        System.out.println("Ha elegido Comprador");
+	                        verificado = login();
+	                        if(verificado)
+	                        {}
+	                        else
+	                        {
+	                        	System.out.println("Usuario y/o contraseña incorrectos");
+	                        }
+	                        break;
 	                    case 2:
-	                        eliminarPersona();
-	                        return;
+	                    	System.out.println("Ha elegido Propietario");
+	                    	verificado = login();
+	                        if(verificado)
+	                        {}
+	                        else
+	                        {
+	                        	System.out.println("Usuario y/o contraseña incorrectos");
+	                        }
+	                        break;
 	                    case 3:
-	                        mostrarPiezas();
-	                        return;
+	                    	System.out.println("Ha elegido Cajero");
+	                    	verificado = login();
+	                        if(verificado)
+	                        {}
+	                        else
+	                        {
+	                        	System.out.println("Usuario y/o contraseña incorrectos");
+	                        }
+	                        break;
 	                    case 4:
-	                        return;
+	                    	System.out.println("Ha elegido Administrador");
+	                    	verificado = login();
+	                        if(verificado)
+	                        {}
+	                        else
+	                        {
+	                        	System.out.println("Usuario y/o contraseña incorrectos");
+	                        }
+	                    	break;
 	                    case 5:
+	                    	System.out.println("Ha elegido Operador");
+	                    	verificado = login();
+	                        if(verificado)
+	                        {}
+	                        else
+	                        {
+	                        	System.out.println("Usuario y/o contraseña incorrectos");
+	                        }
+	                    	break;
 	                    case 6:
+	                    	System.out.println("Ha elegido Empleado");
+	                    	verificado = login();
+	                        if(verificado)
+	                        {}
+	                        else
+	                        {
+	                        	System.out.println("Usuario y/o contraseña incorrectos");
+	                        }
+	                    	break;
 	                    case 7:
+	                    	System.out.println("Ha elegido la opcion SALIR");
+	                    	break;
 	                    default:
 	                        System.out.println("Opción inválida. Por favor seleccione una opción válida.");
-	                }
-	            } 
-	            else 
-	            {
-	                scanner.nextLine(); 
-	                System.out.println("Opción inválida. Por favor seleccione una opción válida.");
-	                opcion = 0; 
-	            }
-	        } while (opcion != 4);
+	                }	             	            
+	        } while (opcion != 7);
 
 	        scanner.close();
 	    }
 
-	    public static void login()
-	    {
-	    	System.out.println("Ingrese su usuario: ");
-	    	InputStream opcion = System.in;
-	    	
-	    	System.out.println("Ingrese su contraseña: ");
-	    	
+	    public static boolean login()
+	    {	
+	    	int i = 0;
+	    	String username;
+	    	String contrasenia;
+	    	List<String> listaUsuarios = new ArrayList<>();
+	    	List<String> listaContrasenias = new ArrayList<>();
+	    	for (Persona persona : personasRegistradas)
+	    	{
+	    		listaUsuarios.add(persona.getUsername());
+	    		listaContrasenias.add(persona.getContrasenia());
+	    		System.out.println(persona.getUsername());
+	    		System.out.println(persona.getContrasenia());
+	    	}
+	    	boolean verificado = false;
+	    	Scanner scanner = new Scanner(System.in);
+	    	do 
+	    	{
+	    		System.out.println("Ingrese su usuario: ");
+	    		username = scanner.nextLine();	    	
+	    		System.out.println("Ingrese su contraseña: ");
+	    		contrasenia = scanner.nextLine();
+	    		if ((listaUsuarios.contains(username)) && (listaContrasenias.contains(contrasenia)))
+	    		{
+	    			verificado = true;
+	    		}
+	    		else
+	    		{
+	    			verificado = false;
+	    			System.out.println("contraseña incorrecta, intente de nuevo");
+	    			i++;
+	    		}
+	    	}while((verificado == false) || i < 3);
+	    	scanner.close();
+	    	return verificado;
+
 	    }
 
 	    
