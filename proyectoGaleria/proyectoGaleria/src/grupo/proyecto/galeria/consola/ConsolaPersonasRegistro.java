@@ -144,6 +144,7 @@ public class ConsolaPersonasRegistro
         catch (IOException e) 
         {}
     }
+    
 }
 class persona extends Persona
 {

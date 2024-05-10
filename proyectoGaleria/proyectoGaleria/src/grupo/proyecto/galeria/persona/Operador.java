@@ -2,41 +2,42 @@ package grupo.proyecto.galeria.persona;
 
 import grupo.proyecto.galeria.controladorSubasta.Subasta;
 
-public class Operador extends Persona {
-	private int id;
+public class Operador extends Persona 
+{
 	private String nombre;
+	private String tipo = "Operador";
+	private String username;
+	private String contrasenia;
 
-	public Operador(int id, String nombre)
+	public Operador(String tipo, String nombre, String username, String contrasenia)
 	{
-    this.id = id;
-    this.nombre = nombre;
+		super(tipo, nombre, username, contrasenia);
 	}
 
 	public void registrarOferta(Subasta subasta, Double oferta, Comprador comprador) {
 		return;
 	}
-
-	public String getTipoDePersona() {
-		return null;
-	}
-
-	public int getId() {
-		return id;
-	}
 	@Override
-	public void administrarInventario() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void actualizarInventario() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getNombre() {
-		// TODO Auto-generated method stub
+	public String getNombre() 
+	{
 		return nombre;
+	}
+
+	@Override
+	public String getTipo() 
+	{
+		return tipo;
+	}
+
+	@Override
+	public String getUsername() 
+	{
+		return username;
+	}
+
+	@Override
+	public String getContrasenia() 
+	{
+		return contrasenia;
 	}
 }

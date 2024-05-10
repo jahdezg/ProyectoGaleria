@@ -2,22 +2,17 @@ package grupo.proyecto.galeria.persona;
 
 public class Empleado extends Persona {
 
-	public static final String EMPLEADO = "Empleado";
+	public static final String tipo = "Empleado";
 	private String nombre;
-	private int id;
+	private String username;
+	private String contrasenia;
 
-	public Empleado(String nombre, int id) 
+
+	public Empleado(String tipo, String nombre, String username, String contrasenia) 
 	{
-		this.nombre = nombre;
-		this.id = id;
+		super(tipo, nombre, username, contrasenia);
 	}
 
-	// Métodos
-	@Override
-	public String getTipoDePersona() 
-	{
-		return EMPLEADO;
-	}
 
 	public void venderPieza() 
 	{
@@ -34,30 +29,27 @@ public class Empleado extends Persona {
 	}
 
 	@Override
-	public void administrarInventario() 
+	public String getNombre() 
 	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void actualizarInventario() 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getId() 
-	{
-		// TODO Auto-generated method stub
-		return id;
-	}
-
-	@Override
-	public String getNombre() {
-		// TODO Auto-generated method stub
 		return nombre;
+	}
+
+	@Override
+	public String getTipo() 
+	{
+		return tipo;
+	}
+
+	@Override
+	public String getUsername() 
+	{
+		return username;
+	}
+
+	@Override
+	public String getContrasenia() 
+	{
+		return contrasenia;
 	}
 
 }
