@@ -1,0 +1,5 @@
+Admin,Ad
+Emp,Em
+Caje,Ca
+Prop,Pr
+Comp,Co
