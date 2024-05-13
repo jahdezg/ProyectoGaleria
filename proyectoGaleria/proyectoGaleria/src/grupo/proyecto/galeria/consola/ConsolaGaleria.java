@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.*;
 import grupo.proyecto.galeria.inventarioPiezas.Pieza;
 import grupo.proyecto.galeria.persona.Autor;
+import grupo.proyecto.galeria.persona.Comprador;
 import grupo.proyecto.galeria.persona.Persona;
 
 
@@ -17,7 +18,8 @@ public class ConsolaGaleria
 	
 	    private static final String ARCHIVO_USUARIOS = "usuarios.txt";
 	    private static List<Persona> personasRegistradas = new ArrayList<>();
-
+	    static Comprador comprador; 
+	    		
 	    public static void main(String[] args) 
 	    {
 	        cargarUsuarios();
@@ -76,27 +78,49 @@ public class ConsolaGaleria
 	    	                        if (verificado) 
 	    	                        {
 	    	                        	System.out.println("Se ha ingresado correctamente");
+	    	                        	comprador = new Comprador(null, null, null, null, verificado, opcion3);
+	    	                        	
 	    	                        }
 	    	                        break;
 	    	                    case 2:
 	    	                    	System.out.println("Se ingresara como Propietario");
-//	    	                        verificado = login(personasRegistradas, "Propietario");
+	    	                        verificado = login(personasRegistradas, "Propietario");
+	    	                    	if (verificado) 
+	    	                        {
+	    	                        	System.out.println("Se ha ingresado correctamente");
+	    	                        }
 	    	                        break;
 	    	                    case 3:
 	    	                    	System.out.println("Se ingresara como Cajero");
-//	    	                        verificado = login(personasRegistradas, "Cajero");
+	    	                        verificado = login(personasRegistradas, "Cajero");
+	    	                    	if (verificado) 
+	    	                        {
+	    	                        	System.out.println("Se ha ingresado correctamente");
+	    	                        }
 	    	                        break;
 	    	                    case 4:
 	    	                    	System.out.println("Se ingresara como Administrador");
-//	    	                        verificado = login(personasRegistradas, "Administrador");
+	    	                        verificado = login(personasRegistradas, "Administrador");
+	    	                    	if (verificado) 
+	    	                        {
+	    	                        	System.out.println("Se ha ingresado correctamente");
+	    	                        }
 	    	                        break;
 	    	                    case 5:
 	    	                    	System.out.println("Se ingresara como Operador");
-//	    	                        verificado = login(personasRegistradas, "Operador");
+	    	                        verificado = login(personasRegistradas, "Operador");
+	    	                    	if (verificado) 
+	    	                        {
+	    	                        	System.out.println("Se ha ingresado correctamente");
+	    	                        }
 	    	                        break;
 	    	                    case 6:
 	    	                    	System.out.println("Se ingresara como Empleado");
-//	    	                        verificado = login(personasRegistradas, "Empleado");
+	    	                        verificado = login(personasRegistradas, "Empleado");
+	    	                    	if (verificado) 
+	    	                        {
+	    	                        	System.out.println("Se ha ingresado correctamente");
+	    	                        }
 	    	                        break;
 	    	                }
 	            		break;
