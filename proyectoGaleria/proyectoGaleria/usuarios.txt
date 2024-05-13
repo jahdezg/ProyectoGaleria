@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 a,a,a,a
 Comprador,JUano,XxJuanoxX,PepitoPerez
 cangrejo,lola,Lolazzzz,Haruna
+=======
+a,a,a,a
+Comprador,JUano,XxJuanoxX,PepitoPerez
+cangrejo,lola,Lolazzzz,Haruna
+>>>>>>> branch 'main' of https://github.com/jahdezg/ProyectoGaleria.git
