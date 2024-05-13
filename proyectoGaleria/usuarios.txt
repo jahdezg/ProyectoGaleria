@@ -1,2 +1,5 @@
 ,a,a,a
 Cajero,a,a,a
+Cajero,a,a,a
+,a,a,a
+Operador,a,a,a

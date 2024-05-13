@@ -216,15 +216,15 @@ public class ConsolaGaleria
 	    	String tipo = "";
 	        Scanner scanner = new Scanner(System.in);
 
-	        System.out.println("Ingrese el tipo de Usuario: ");
+	        System.out.println("Elija el tipo de Usuario: ");
 	        System.out.println("1. Comprador");
             System.out.println("2. Propietario");
             System.out.println("3. Cajero");
             System.out.println("4. Administrador");
             System.out.println("5. Operador");
             System.out.println("6. Empleado");
+            do {
             eleccion = scanner.nextInt();
-            scanner.nextLine();
             switch(eleccion)
             {
             case 1:
@@ -249,6 +249,8 @@ public class ConsolaGaleria
             	System.out.println("Elija una opcion valida");
             	break;
             }
+            }while((eleccion < 1) || (eleccion > 6));
+            scanner.nextLine();
 	        System.out.println("Ingrese el Nombre del usuario: ");
 	        String nombre = scanner.nextLine();
 	        System.out.println("Ingrese el Username deseado: ");
