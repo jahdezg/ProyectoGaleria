@@ -17,8 +17,9 @@ public class MenuRoles {
             System.out.println("\nMenú de administrador");
             System.out.println("1. Registrar una pieza nueva");
             System.out.println("2. Eliminar una pieza");
-            System.out.println("3. Mostrar las piezas");
-            System.out.println("4. Salir");
+            System.out.println("3. Mostrar piezas vendidas");
+            System.out.println("4. Mostrar piezas no vendidas");
+            System.out.println("5. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine(); 
@@ -31,15 +32,18 @@ public class MenuRoles {
                     eliminarPieza(scanner);
                     break;
                 case 3:
-                    mostrarPiezas();
+                    mostrarPiezasVendidas();
                     break;
                 case 4:
+                    mostrarPiezasNoVendidas2();
+                    break;
+                case 5:
                     System.out.println("Saliendo...");
                     break;
                 default:
                     System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
             }
-        } while (opcion != 4);
+        } while (opcion != 5);
     }
 
     static void menuAutor(Scanner scanner, String usuario) {
@@ -119,9 +123,51 @@ public class MenuRoles {
         System.out.println("¿La pieza se vendió? (Si/No):");
         boolean vendida = scanner.nextLine().equalsIgnoreCase("Si");
 
-        guardarPieza(nombre, autor, propietario, añoCreacion, tipo, vendida);
+        double precioVenta = 0.0;
+        String fechaCompra = "";
+        String horaCompra = "";
+
+        if (vendida) {
+            System.out.println("Ingrese el precio por el cual se vendió la pieza:");
+            precioVenta = scanner.nextDouble();
+            scanner.nextLine();
+            
+            System.out.println("Ingrese la fecha de compra (Formato: dd/mm/yyyy):");
+            fechaCompra = scanner.nextLine();
+
+            System.out.println("Ingrese la hora de compra (Formato: HH:MM):");
+            horaCompra = scanner.nextLine();
+        } else {
+            precioVenta = 0.0;
+        }
+
+        System.out.println("Ingrese el método de pago (Fijo/Subasta/Ninguno (si si se vendió)):");
+        String metodoPago = scanner.nextLine().trim().toLowerCase();
+
+        double precio = 0.0;
+        double precioMinimo = 0.0;
+        if (metodoPago.equals("fijo")) {
+            if (!vendida) {
+                System.out.println("Ingrese el precio:");
+                precio = scanner.nextDouble();
+                scanner.nextLine();
+            }
+        } else if (metodoPago.equals("subasta")) {
+            System.out.println("Ingrese el precio mínimo:");
+            precioMinimo = scanner.nextDouble();
+            scanner.nextLine();
+            System.out.println("Ingrese el precio inicial:");
+            double precioInicial = scanner.nextDouble();
+            scanner.nextLine();
+            precioVenta = precioInicial;
+        }
+
+        guardarPieza(nombre, autor, propietario, añoCreacion, tipo, vendida, metodoPago, precio, precioMinimo, precioVenta, fechaCompra, horaCompra);
+
         System.out.println("Pieza registrada exitosamente.");
     }
+
+
     
     private static boolean tipoValido(String tipo) {
         String[] tiposValidos = {"escultura", "fotografia", "impresion", "pintura", "video"};
@@ -134,14 +180,51 @@ public class MenuRoles {
         return false;
     }
     
-    private static void guardarPieza(String nombre, String autor, String propietario, int añoCreacion, String tipo, Boolean vendida) {
+    private static void guardarPieza(String nombre, String autor, String propietario, int añoCreacion, String tipo, boolean vendida, String metodoPago, double precio, double precioMinimo, double precioVenta, String fechaCompra, String horaCompra) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(PIEZAS_FILE_PATH, true))) {
-            bw.write(nombre + ":" + autor + ":" + propietario + ":" + añoCreacion + ":" + tipo + ":" + vendida) ;
+            if (vendida) {
+                bw.write(nombre + ":" + autor + ":" + propietario + ":" + añoCreacion + ":" + tipo + ":" + vendida + ":" + metodoPago + ":" + precio + ":" + precioMinimo + ":" + String.format("%.2f", precioVenta) + ":" + fechaCompra + ":" + horaCompra);
+            } else {
+                if (metodoPago.equals("subasta")) {
+                    bw.write(nombre + ":" + autor + ":" + propietario + ":" + añoCreacion + ":" + tipo + ":" + vendida + ":" + metodoPago + ":" + precio + ":" + precioMinimo + ":0.0:" + fechaCompra + ":" + horaCompra);
+                } else {
+                    bw.write(nombre + ":" + autor + ":" + propietario + ":" + añoCreacion + ":" + tipo + ":" + vendida + ":" + metodoPago + ":" + precio + ":0.0:0.0:" + fechaCompra + ":" + horaCompra);
+                }
+            }
             bw.newLine();
+            bw.flush(); 
+            System.out.println("Pieza guardada exitosamente.");
         } catch (IOException e) {
             System.err.println("Error al guardar pieza: " + e.getMessage());
         }
     }
+
+
+
+    private static void mostrarPiezasVendidas() {
+        try (BufferedReader br = new BufferedReader(new FileReader(PIEZAS_FILE_PATH))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(":");
+                if (partes.length >= 6 && partes[5].equalsIgnoreCase("true")) {
+                    System.out.println("Nombre: " + partes[0]);
+                    System.out.println("Autor: " + partes[1]);
+                    System.out.println("Propietario: " + partes[2]);
+                    System.out.println("Año de creación: " + partes[3]);
+                    System.out.println("Tipo: " + partes[4]);
+                    System.out.println("Vendida: Sí");
+                    System.out.println("Precio de venta: " + partes[9]);
+                    System.out.println("Fecha de venta: " + partes[10]);
+                    String horaVenta = partes[11] + ":" + partes[12];
+                    System.out.println("Hora de venta: " + horaVenta);
+                    System.out.println(); 
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al mostrar piezas vendidas: " + e.getMessage());
+        }
+    }  
+
 
     private static void eliminarPieza(Scanner scanner) {
         System.out.println("Lista de piezas disponibles:");
@@ -154,14 +237,28 @@ public class MenuRoles {
         eliminarPiezaPorID(numeroPiezaEliminar);
     }
 
+
     private static void mostrarPiezasConID() {
         try (BufferedReader br = new BufferedReader(new FileReader(PIEZAS_FILE_PATH))) {
+            System.out.println("Lista de piezas:");
             String linea;
             int contador = 1;
             while ((linea = br.readLine()) != null) {
                 String[] partes = linea.split(":");
-                if (partes.length == 5) {
+                if (partes.length >= 6) {
                     System.out.println(contador + ". " + partes[0]); 
+                    System.out.println("   Autor: " + partes[1]);
+                    System.out.println("   Propietario: " + partes[2]); 
+                    System.out.println("   Año de creación: " + partes[3]);
+                    System.out.println("   Tipo: " + partes[4]);
+                    System.out.println("   Vendida: " + (partes[5].equalsIgnoreCase("true") ? "Sí" : "No"));
+                    if (partes[5].equalsIgnoreCase("true")) {
+                        System.out.println("   Precio de venta: " + partes[7]);
+                    } else {
+                        System.out.println("   Precio: " + partes[7]);
+                        System.out.println("   Precio mínimo: " + partes[8]);
+                    }
+                    System.out.println(); 
                     contador++;
                 }
             }
@@ -169,6 +266,7 @@ public class MenuRoles {
             System.err.println("Error al mostrar piezas: " + e.getMessage());
         }
     }
+
 
     private static void eliminarPiezaPorID(int id) {
         try {
@@ -180,7 +278,7 @@ public class MenuRoles {
             boolean eliminada = false;
             while ((linea = br.readLine()) != null) {
                 String[] partes = linea.split(":");
-                if (partes.length == 6) {
+                if (partes.length >= 7) {
                     if (contador != id) {
                         bw.write(linea); 
                         bw.newLine();
@@ -209,19 +307,26 @@ public class MenuRoles {
         }
     }
 
+
     private static void mostrarPiezas() {
         try (BufferedReader br = new BufferedReader(new FileReader(PIEZAS_FILE_PATH))) {
             System.out.println("Lista de piezas:");
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] partes = linea.split(":");
-                if (partes.length == 6) {
+                if (partes.length >= 6) {
                     System.out.println("Nombre: " + partes[0]);
                     System.out.println("Autor: " + partes[1]);
                     System.out.println("Propietario: " + partes[2]); 
                     System.out.println("Año de creación: " + partes[3]);
                     System.out.println("Tipo: " + partes[4]);
                     System.out.println("Vendida: " + (partes[5].equalsIgnoreCase("true") ? "Sí" : "No"));
+                    if (partes[5].equalsIgnoreCase("true")) {
+                        System.out.println("Precio de venta: " + partes[7]);
+                    } else {
+                        System.out.println("Precio: " + partes[7]);
+                        System.out.println("Precio mínimo: " + partes[8]);
+                    }
                     System.out.println(); 
                 }
             }
@@ -229,6 +334,47 @@ public class MenuRoles {
             System.err.println("Error al mostrar piezas: " + e.getMessage());
         }
     }
+    
+    private static void mostrarPiezasNoVendidas2() {
+        try (BufferedReader br = new BufferedReader(new FileReader(PIEZAS_FILE_PATH))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(":");
+                if (partes.length >= 6 && partes[5].equalsIgnoreCase("false")) {
+                    System.out.println("Nombre: " + partes[0]);
+                    System.out.println("Autor: " + partes[1]);
+                    System.out.println("Propietario: " + partes[2]);
+                    System.out.println("Año de creación: " + partes[3]);
+                    System.out.println("Tipo: " + partes[4]);
+                    System.out.println("Vendida: No");
+
+                    String metodoPago = partes[6];
+                    System.out.println("Método de pago: " + metodoPago);
+
+                    if (metodoPago.equalsIgnoreCase("subasta")) {
+                        System.out.println("Precio inicial: " + partes[8]);
+                        if (partes.length >= 10) {
+                            System.out.println("Precio mínimo: " + partes[9]);
+                        } else {
+                            System.out.println("No se ha establecido un precio mínimo.");
+                        }
+                    } else if (metodoPago.equalsIgnoreCase("fijo")) {
+                        System.out.println("Precio fijo: " + partes[7]);
+                    }
+
+                    System.out.println();
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al mostrar piezas no vendidas: " + e.getMessage());
+        }
+    }
+
+
+
+
+
+    
 
     private static void revisarPiezasAutor(Scanner scanner) {
         System.out.print("Ingrese su nombre como autor: ");

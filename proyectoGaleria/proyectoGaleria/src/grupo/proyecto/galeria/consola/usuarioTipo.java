@@ -55,7 +55,7 @@ public class usuarioTipo {
             while ((linea = br.readLine()) != null) {
                 String[] partes = linea.split(":");
                 if (partes.length == 3) {
-                    usuarios.put(partes[0], partes[1]);
+                    usuarios.put(partes[0], partes[1] + ":" + partes[2]);
                 } else {
                     System.err.println("Formato de línea incorrecto: " + linea);
                 }
@@ -64,6 +64,7 @@ public class usuarioTipo {
             System.err.println("Error al cargar usuarios: " + e.getMessage());
         }
     }
+
 
 
 
@@ -83,21 +84,39 @@ public class usuarioTipo {
         System.out.print("Ingrese su contraseña: ");
         String contrasena = scanner.nextLine();
 
-        if (usuarios.containsKey(usuario) && usuarios.get(usuario).equals(contrasena)) {
-            System.out.println("Inicio de sesión exitoso como " + usuario);
-            if (usuario.equals("Admin")) { 
-                MenuRoles.menuAdmin(scanner);
-            } 
-            else if (usuario.equals("Autor")) {
-                MenuRoles.menuAutor(scanner, usuario);
-            }
-            else if (usuario.equals("Oper")) { 
-                MenuRoles.menuOperador(scanner);
+        if (usuarios.containsKey(usuario)) {
+            String[] datosUsuario = usuarios.get(usuario).split(":");
+            String contraseñaAlmacenada = datosUsuario[0];
+            String rol = datosUsuario[1];
+            if (contraseñaAlmacenada.equals(contrasena)) {
+                System.out.println("Inicio de sesión exitoso como " + usuario);
+                if (rol.equals("Admin")) { 
+                    MenuRoles.menuAdmin(scanner);
+                } 
+                else if (rol.equals("Autor")) {
+                    MenuRoles.menuAutor(scanner, usuario);
+                }
+                else if (rol.equals("Oper")) { 
+                    MenuRoles.menuOperador(scanner);
+                }
+                else if (rol.equals("Propietario")) {
+                    mostrarMenuPorRol(rol, scanner, usuario);
+                }
+                else if (rol.equals("Comprador")) {
+                    mostrarMenuPorRol(rol, scanner, usuario);
+                }
+                else if (rol.equals("Cajero")) {
+                    MenuCajero.menuCajero(scanner);
+                }
+            } else {
+                System.out.println("Contraseña incorrecta. Por favor, inténtelo de nuevo.");
             }
         } else {
-            System.out.println("Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.");
+            System.out.println("Usuario no encontrado. Por favor, regístrese primero.");
         }
     }
+
+
 
 
     private static void registrarUsuario(Scanner scanner) {
@@ -127,14 +146,14 @@ public class usuarioTipo {
         usuarios.put(usuario, rol);
         guardarUsuario(usuario, contrasena, rol);
         System.out.println("Usuario registrado exitosamente como " + rol);
-        mostrarMenuPorRol(rol, scanner);
+        mostrarMenuPorRol(rol, scanner, rol);
     }
 
-    private static void mostrarMenuPorRol(String rol, Scanner scanner) {
+    private static void mostrarMenuPorRol(String rol, Scanner scanner, String nombrePropietario) {
         if (rol.equals("Comprador")) {
-            // MenuComprador.mostrarMenu(scanner);
+            MenuComprador.menuComprador(scanner, nombrePropietario);
         } else if (rol.equals("Propietario")) {
-            // MenuPropietario.mostrarMenu(scanner);
+        	MenuPropietario.menuPropietario(scanner, nombrePropietario);
         }
     }
 
