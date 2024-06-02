@@ -6,19 +6,14 @@ import grupo.proyecto.galeria.inventarioPiezas.Pieza;
 
 public class Cajero extends Persona {
 
-	public static final String CAJERO = "Cajero";
-
 	private String nombre;
-	private int id;
+	private static String tipo = "Cajero";
+	private static String username;
+	private static String contrasenia;
 
-	public Cajero(String nombre, int id) {
-		this.nombre = nombre;
-		this.id = id;
-	}
-
-	@Override
-	public String getTipoDePersona() {
-		return CAJERO;
+	public Cajero(String tipo, String nombre, String username, String contrasenia) 
+	{
+		super(tipo, nombre, username, contrasenia);
 	}
 
 	public void registroDePago(Compra compra, String metodoDePago, Pago pago, Comprador comprador,
@@ -26,28 +21,39 @@ public class Cajero extends Persona {
 
 	}
 
-	@Override
-	public void administrarInventario() {
-		// TODO Auto-generated method stub
-		
+	public void administrarInventario() 
+	{
+
+	}
+
+
+	public void actualizarInventario() 
+	{
+
 	}
 
 	@Override
-	public void actualizarInventario() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getId() {
-		// TODO Auto-generated method stub
-		return id;
-	}
-
-	@Override
-	public String getNombre() {
-		// TODO Auto-generated method stub
+	public String getNombre() 
+	{
 		return nombre;
+	}
+
+	@Override
+	public String getTipo() 
+	{
+		return tipo;
+	}
+
+	@Override
+	public String getUsername() 
+	{
+		return username;
+	}
+
+	@Override
+	public String getContrasenia() 
+	{
+		return contrasenia;
 	}
 
 }

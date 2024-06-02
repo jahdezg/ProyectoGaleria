@@ -7,18 +7,19 @@ import grupo.proyecto.galeria.Compra;
 import grupo.proyecto.galeria.galeria;
 import grupo.proyecto.galeria.inventarioPiezas.Pieza;
 
-public class Comprador extends Persona {
-	public static final String COMPRADOR = "Comprador";
-	private int id;
+public class Comprador extends Persona 
+{
+	public static final String tipo = "Comprador";
 	private String nombre;
-	private Boolean verificado;
+	private String username;
+	private String contrasenia;
+	private boolean verificado = false;
 	private List<Compra> compras;
 	private double limiteCompra;
 
-	public Comprador(int id, String nombre, Boolean verificado, Double limiteCompra) 
+	public Comprador(String tipo, String nombre, String username, String contrasenia, boolean verificado, double limiteCompra) 
 	{
-		this.id = id;
-		this.nombre = nombre;
+		super(tipo, nombre, username, contrasenia);
 		this.verificado = verificado;
 		compras = new ArrayList<Compra>();
 		this.limiteCompra = limiteCompra;
@@ -31,7 +32,7 @@ public class Comprador extends Persona {
 		{
 			pieza.piezaBloqueada = true;
 			List<Persona> usuarios = galeria.getUsuarios();
-			Comprador comprador = new Comprador(getId(), getNombre(), getVerificado(), getLimiteCompra());
+			Comprador comprador = new Comprador(getTipo(), getNombre(), getUsername(), getContrasenia(), getVerificado(), getLimiteCompra());
 			boolean verificar = administrador.verificarCompra(comprador, monto, usuarios, pieza);
 			if (verificar == true)
 			{				
@@ -41,11 +42,6 @@ public class Comprador extends Persona {
 		}
     }
 
-	public String getTipoDePersona() 
-	{
-		return COMPRADOR;
-    }
-	
 	public boolean getVerificado() 
 	{
 		return verificado;
@@ -61,28 +57,27 @@ public class Comprador extends Persona {
 		return limiteCompra;
 	}
 
-	public int getId() 
-	{
-		return id;
-	}
-
 	@Override
-	public void administrarInventario() 
+	public String getNombre() 
 	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void actualizarInventario() 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getNombre() {
-		// TODO Auto-generated method stub
 		return nombre;
+	}
+
+	@Override
+	public String getTipo() 
+	{
+		return tipo;
+	}
+
+	@Override
+	public String getUsername() 
+	{
+		return username;
+	}
+
+	@Override
+	public String getContrasenia() 
+	{
+		return contrasenia;
 	}
 }

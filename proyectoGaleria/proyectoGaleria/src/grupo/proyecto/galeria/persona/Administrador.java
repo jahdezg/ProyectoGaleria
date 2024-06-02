@@ -7,24 +7,20 @@ import grupo.proyecto.galeria.inventarioPiezas.Pieza;
 
 public class Administrador extends Persona {
 
-	public static final String ADMINISTRADOR = "Administrador";
 
 	private String nombre;
-	private int id;
+	private static String tipo = "Administrador";
+	private static String username;
+	private static String contrasenia;
 
-	public Administrador(String nombre, int id) {
-		this.nombre = nombre;
-		this.id = id;
+	public Administrador(String tipo, String nombre, String username, String contrasenia) 
+	{
+		super(tipo, nombre, username, contrasenia);
 	}
 	
 	public void venderPieza(Comprador comprador, Pieza pieza)
 	{
 		
-	}
-
-	@Override
-	public String getTipoDePersona() {
-		return ADMINISTRADOR;
 	}
 
 	public void registrarNuevaPieza() {
@@ -69,28 +65,41 @@ public class Administrador extends Persona {
 		compras.add(compra);
 	}
 
-	@Override
-	public void administrarInventario() {
-		// TODO Auto-generated method stub
-		
+	public void administrarInventario() 
+	{
+
 	}
 
-	@Override
 	public void actualizarInventario() 
 	{
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override
-	public int getId() {
-		// TODO Auto-generated method stub
-		return id;
-	}
-
-	@Override
-	public String getNombre() {
+	public String getNombre() 
+	{
 		// TODO Auto-generated method stub
 		return nombre;
+	}
+
+	@Override
+	public String getTipo() 
+	{
+		// TODO Auto-generated method stub
+		return tipo;
+	}
+
+	@Override
+	public String getUsername() 
+	{
+		// TODO Auto-generated method stub
+		return username;
+	}
+
+	@Override
+	public String getContrasenia() 
+	{
+		// TODO Auto-generated method stub
+		return contrasenia;
 	}
 }

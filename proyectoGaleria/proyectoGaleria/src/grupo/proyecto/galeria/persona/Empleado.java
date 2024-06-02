@@ -1,22 +1,33 @@
 package grupo.proyecto.galeria.persona;
 
-import grupo.proyecto.galeria.controladorSubasta.Subasta;
+public class Empleado extends Persona {
 
-public class Operador extends Persona 
-{
+	public static final String tipo = "Empleado";
 	private String nombre;
-	private String tipo = "Operador";
 	private String username;
 	private String contrasenia;
 
-	public Operador(String tipo, String nombre, String username, String contrasenia)
+
+	public Empleado(String tipo, String nombre, String username, String contrasenia) 
 	{
 		super(tipo, nombre, username, contrasenia);
 	}
 
-	public void registrarOferta(Subasta subasta, Double oferta, Comprador comprador) {
+
+	public void venderPieza() 
+	{
 		return;
 	}
+
+	public void agregarPieza() 
+	{
+		return;
+	}
+
+	public void devolverAlPropietario() 
+	{
+	}
+
 	@Override
 	public String getNombre() 
 	{
@@ -40,4 +51,5 @@ public class Operador extends Persona
 	{
 		return contrasenia;
 	}
+
 }

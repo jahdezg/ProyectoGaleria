@@ -8,16 +8,16 @@ import grupo.proyecto.galeria.inventarioPiezas.Pieza;
 public class Propietario extends Persona 
 {
 
-	  public static final String PROPIETARIO = "Propietario";
+	  public static final String tipo = "Propietario";
 	  private List<Pieza> piezas;
 	  private List<Pieza> historialPiezas;
-	  private int id;
+	  private String username;
 	  private String nombre;
+	  private String contrasenia;
 	  
-	  public Propietario(int id, String nombre) 
+	  public Propietario(String tipo, String nombre, String username, String contrasenia) 
 	  {
-		  this.id = id;
-		  this.nombre = nombre;
+		  super(tipo, nombre, username, contrasenia);
 		  piezas = new ArrayList<Pieza>();
 		  historialPiezas = new ArrayList<Pieza>();
 	  }
@@ -30,29 +30,27 @@ public class Propietario extends Persona
 	    return historialPiezas;
 	  }
 
-	  public String getTipoDePersona() {
-	    return null;
-	  }
+	  @Override
+		public String getNombre() 
+		{
+			return nombre;
+		}
 
-	  public int getId() {
-	    return  id;
-	  }
+		@Override
+		public String getTipo() 
+		{
+			return tipo;
+		}
 
-	@Override
-	public void administrarInventario() {
-		// TODO Auto-generated method stub
-		
-	}
+		@Override
+		public String getUsername() 
+		{
+			return username;
+		}
 
-	@Override
-	public void actualizarInventario() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getNombre() {
-		// TODO Auto-generated method stub
-		return nombre;
-	}
+		@Override
+		public String getContrasenia() 
+		{
+			return contrasenia;
+		}
 }
