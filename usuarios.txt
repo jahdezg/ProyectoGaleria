@@ -5,3 +5,4 @@ Oper:Op:Operador
 Isa:Ort:Comprador
 Mariana:Mar:Comprador
 Juan:Ju:Propietario
+Juan:Hernandez:Comprador

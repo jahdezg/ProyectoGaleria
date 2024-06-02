@@ -14,7 +14,7 @@ public class usuarioTipo {
     private static HashMap<String, String> usuarios = new HashMap<>();
 
     public static void main(String[] args) {
-        cargarUsuarios(); 
+        cargarUsuarios();
 
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -49,7 +49,7 @@ public class usuarioTipo {
         scanner.close();
     }
 
-    private static void cargarUsuarios() {
+    public static void cargarUsuarios() {
         try (BufferedReader br = new BufferedReader(new FileReader(USUARIOS_FILE_PATH))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -65,9 +65,6 @@ public class usuarioTipo {
         }
     }
 
-
-
-
     private static void guardarUsuario(String usuario, String contrasena, String rol) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(USUARIOS_FILE_PATH, true))) {
             bw.write(usuario + ":" + contrasena + ":" + rol);
@@ -76,7 +73,6 @@ public class usuarioTipo {
             System.err.println("Error al guardar usuario: " + e.getMessage());
         }
     }
-
 
     private static void iniciarSesion(Scanner scanner) {
         System.out.print("Ingrese su usuario: ");
@@ -90,23 +86,27 @@ public class usuarioTipo {
             String rol = datosUsuario[1];
             if (contraseñaAlmacenada.equals(contrasena)) {
                 System.out.println("Inicio de sesión exitoso como " + usuario);
-                if (rol.equals("Admin")) { 
-                    MenuRoles.menuAdmin(scanner);
-                } 
-                else if (rol.equals("Autor")) {
-                    MenuRoles.menuAutor(scanner, usuario);
-                }
-                else if (rol.equals("Oper")) { 
-                    MenuRoles.menuOperador(scanner);
-                }
-                else if (rol.equals("Propietario")) {
-                    mostrarMenuPorRol(rol, scanner, usuario);
-                }
-                else if (rol.equals("Comprador")) {
-                    mostrarMenuPorRol(rol, scanner, usuario);
-                }
-                else if (rol.equals("Cajero")) {
-                    MenuCajero.menuCajero(scanner);
+                switch (rol) {
+                    case "Administrador":
+                        MenuRoles.menuAdmin(scanner);
+                        break;
+                    case "Autor":
+                        MenuRoles.menuAutor(scanner, usuario);
+                        break;
+                    case "Oper":
+                        MenuRoles.menuOperador(scanner);
+                        break;
+                    case "Propietario":
+                        mostrarMenuPorRol(rol, scanner, usuario);
+                        break;
+                    case "Comprador":
+                        mostrarMenuPorRol(rol, scanner, usuario);
+                        break;
+                    case "Cajero":
+                        MenuCajero.menuCajero(scanner);
+                        break;
+                    default:
+                        System.out.println("Rol desconocido. Por favor, contacte al administrador.");
                 }
             } else {
                 System.out.println("Contraseña incorrecta. Por favor, inténtelo de nuevo.");
@@ -115,9 +115,6 @@ public class usuarioTipo {
             System.out.println("Usuario no encontrado. Por favor, regístrese primero.");
         }
     }
-
-
-
 
     private static void registrarUsuario(Scanner scanner) {
         System.out.print("Ingrese el usuario a registrar: ");
@@ -143,18 +140,17 @@ public class usuarioTipo {
                 rol = "Comprador";
         }
 
-        usuarios.put(usuario, rol);
+        usuarios.put(usuario, contrasena + ":" + rol);
         guardarUsuario(usuario, contrasena, rol);
         System.out.println("Usuario registrado exitosamente como " + rol);
-        mostrarMenuPorRol(rol, scanner, rol);
+        mostrarMenuPorRol(rol, scanner, usuario);
     }
 
     private static void mostrarMenuPorRol(String rol, Scanner scanner, String nombrePropietario) {
         if (rol.equals("Comprador")) {
             MenuComprador.menuComprador(scanner, nombrePropietario);
         } else if (rol.equals("Propietario")) {
-        	MenuPropietario.menuPropietario(scanner, nombrePropietario);
+            MenuPropietario.menuPropietario(scanner, nombrePropietario);
         }
     }
-
 }

@@ -1,7 +1,6 @@
 package grupo.proyecto.galeria.consola;
 
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
