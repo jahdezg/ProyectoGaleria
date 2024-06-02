@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class RegistrosVentana extends JFrame implements ActionListener{
 	
-	//no se si le ponemos un titulo
+	//no se si le ponemos un titulo o una foto al lado
 	
 	private JLabel lblNombre;
 	private JLabel lblContraseña;
