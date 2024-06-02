@@ -1,0 +1,7 @@
+Admin:Ad:Administrador
+Caje:Ca:Cajero
+Autor:Au:Autor
+Oper:Op:Operador
+isa:ort:Propietario
+Isa:Ortega:Comprador
+Mari:Ort:Propietario
