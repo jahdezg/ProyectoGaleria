@@ -12,14 +12,15 @@ public class OpcionesBotones {
 
     public JPanel crearPanelOpciones() {
         JPanel panel = new JPanel(new GridBagLayout());
+        panel.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        JButton historialButton = new JButton("Mirar historial de piezas");
-        JButton subastaButton = new JButton("Participar en subasta (Opción en desarrollo)");
-        JButton comprarButton = new JButton("Comprar pieza");
-        JButton salirButton = new JButton("Salir");
+        JButton historialButton = crearBoton("Mirar historial de piezas");
+        JButton subastaButton = crearBoton("Participar en subasta (Opción en desarrollo)");
+        JButton comprarButton = crearBoton("Comprar pieza");
+        JButton salirButton = crearBoton("Salir");
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -43,6 +44,14 @@ public class OpcionesBotones {
         salirButton.addActionListener(e -> frame.dispose());
 
         return panel;
+    }
+
+    private JButton crearBoton(String texto) {
+        BotonRedondeado boton = new BotonRedondeado(texto);
+        boton.setPreferredSize(new Dimension(200, 100));
+        boton.setBackground(new Color(0, 0, 0, 180)); // Fondo negro con algo de transparencia
+        boton.setForeground(Color.WHITE); // Texto blanco
+        return boton;
     }
 
     private void mostrarHistorial() {
