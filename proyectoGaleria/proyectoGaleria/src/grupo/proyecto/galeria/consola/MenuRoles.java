@@ -434,7 +434,7 @@ public class MenuRoles {
     
 
 
-    private static boolean comprarPieza(String nombrePieza) {
+    public static boolean comprarPieza(String nombrePieza) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(PIEZAS_FILE_PATH));
             BufferedWriter bw = new BufferedWriter(new FileWriter("temp.txt")); 
