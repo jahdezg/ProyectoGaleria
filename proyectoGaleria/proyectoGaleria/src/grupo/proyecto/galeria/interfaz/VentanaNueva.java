@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VentanaNueva extends JFrame {
+	
+	private LogoVentana panelLogo;
 
     public VentanaNueva() {
         setTitle("Menu Principal");
@@ -16,13 +18,19 @@ public class VentanaNueva extends JFrame {
         UsuarioTipo.cargarUsuarios();
 
         JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBackground(Color.BLACK);
 
         BotonesOpciones botonesOpciones = new BotonesOpciones();
-        mainPanel.add(botonesOpciones.getPanel(), BorderLayout.CENTER);
+        JPanel botonesPanel = botonesOpciones.getPanel();
+        mainPanel.add(botonesPanel, BorderLayout.CENTER);
 
         add(mainPanel);
 
         setVisible(true);
+        
+        //setLayout(new BorderLayout());
+		panelLogo =new LogoVentana();
+		add(panelLogo, BorderLayout.NORTH);
     }
 
     public static void main(String[] args) {

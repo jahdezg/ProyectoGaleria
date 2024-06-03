@@ -2,49 +2,57 @@ package grupo.proyecto.galeria.interfaz;
 
 import grupo.proyecto.galeria.consola.UsuarioTipo;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class VentanaRegistroUsuario extends JFrame {
 
     public VentanaRegistroUsuario() {
         setTitle("Registro de Usuario");
-        setSize(400, 300);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        
+        JSplitPane divisionPanel = new JSplitPane();
+        divisionPanel.setDividerLocation(400);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
+        JPanel panelFormulario = new JPanel();
+        panelFormulario.setLayout(new GridBagLayout());
+        divisionPanel.setBackground(Color.WHITE);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.gridx = 0;
         gbc.gridy = 0;
 
         JLabel usuarioLabel = new JLabel("Usuario:");
-        panel.add(usuarioLabel, gbc);
+        panelFormulario.add(usuarioLabel, gbc);
 
         gbc.gridx = 1;
         JTextField usuarioField = new JTextField(20);
-        panel.add(usuarioField, gbc);
+        panelFormulario.add(usuarioField, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
         JLabel contrasenaLabel = new JLabel("Contraseña:");
-        panel.add(contrasenaLabel, gbc);
+        panelFormulario.add(contrasenaLabel, gbc);
 
         gbc.gridx = 1;
         JPasswordField contrasenaField = new JPasswordField(20);
-        panel.add(contrasenaField, gbc);
+        panelFormulario.add(contrasenaField, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
         JLabel rolLabel = new JLabel("Rol:");
-        panel.add(rolLabel, gbc);
+        panelFormulario.add(rolLabel, gbc);
 
         gbc.gridx = 1;
         String[] roles = {"Comprador", "Propietario"};
         JComboBox<String> rolComboBox = new JComboBox<>(roles);
-        panel.add(rolComboBox, gbc);
+        panelFormulario.add(rolComboBox, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -52,7 +60,10 @@ public class VentanaRegistroUsuario extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
 
         JButton registrarButton = new JButton("Registrar Usuario");
-        panel.add(registrarButton, gbc);
+        registrarButton.setBackground(Color.BLACK);
+        registrarButton.setForeground(Color.WHITE);
+        registrarButton.setBorderPainted(false);
+        panelFormulario.add(registrarButton, gbc);
 
         registrarButton.addActionListener(e -> {
             String usuario = usuarioField.getText();
@@ -68,8 +79,39 @@ public class VentanaRegistroUsuario extends JFrame {
             JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente como " + rol);
             dispose(); // Cierra la ventana de registro
         });
+        
+        JPanel panelImagen = new JPanel() {
+            private BufferedImage imagen;
 
-        add(panel);
+            {
+                try 
+                {
+                    imagen = ImageIO.read(new File("./data/imagenes/ventanaRegistro.JPG")); 
+                } 
+                catch (IOException e) 
+                {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected void paintComponent(Graphics g) 
+            {
+                super.paintComponent(g);
+                if (imagen != null) {
+                    int width = getWidth();
+                    int height = getHeight();
+                    g.drawImage(imagen, 0, 0, width, height, this);
+                }
+            }
+        };
+
+        panelImagen.setPreferredSize(new Dimension(400, 600)); // Tamaño preferido para la mitad derecha
+
+        divisionPanel.setRightComponent(panelFormulario);
+        divisionPanel.setLeftComponent(panelImagen);
+
+        add(divisionPanel);
         setVisible(true);
     }
 
